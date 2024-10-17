@@ -57,3 +57,26 @@ def calcular_vif(df: pd.DataFrame, umbral_vif = None):
         return vif[vif.VIF > umbral_vif]
 
     return vif
+
+import pandas as pd
+def data_values(df:pd.DataFrame):
+    '''Muestra los valores de las variables 
+        
+        Parametros:
+        df: DataFrame del que se desea visualizar los valores
+
+        Retorna valores de dos formas posibles en modo impreso (print):
+        1. Variables 'object': Muestra los valores unicos de esta variable
+        2. Valores numericos: Muestra el minimo y maximo de estos valores
+
+        '''
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            print(f'{col} ({df[col].dtype})')
+            print(df[col].unique())
+            print(' ')
+        
+        else:
+            print(f'{col} ({df[col].dtype})')
+            print(f'min: {df[col].min()}, max: {df[col].max()}')
+            print(' ')
