@@ -6,7 +6,7 @@ import seaborn as sns
 def filtrar_correlaciones(df, umbral=0.7, objetivo=None):
     """
     Filtra las correlaciones mayores al umbral dado y excluye las correlaciones con la variable objetivo,
-    evitando correlaciones duplicadas.
+    evitando correlaciones duplicadas. Solo acepta datos numericos, no categoricos
     
     Parámetros:
     - df_corr: DataFrame de correlaciones (variables en filas y columnas).
@@ -35,18 +35,21 @@ def filtrar_correlaciones(df, umbral=0.7, objetivo=None):
     return df_corr_stack_sin_duplicados
 
 
-def calcular_vif(df: pd.DataFrame, umbral_vif = None):
+def calcular_vif(df: pd.DataFrame, umbral_vif = None, objetivo:str = None):
 
     """
     Calcula el VIF (Variance Inflation Factor). El VIF mide cuánto aumenta la varianza de los 
-    coeficientes debido a la colinealidad.
+    coeficientes debido a la colinealidad. Solo acepta datos numericos, no categoricos
     Parámetros:
     - df: DataFrame de DATOS 
     - umbral_vif: Opcional en caso se desee filtral los datos de VIF
+    - Objetivo: Nombre de la variable objetivo
 
     Retorna:
     - DataFrame con las variables y su valor VIF
     """
+    if objetivo:
+        df = df.drop(columns=objetivo, axis = 0)
 
     vif = pd.DataFrame()
     vif["Variable"] = df.columns
