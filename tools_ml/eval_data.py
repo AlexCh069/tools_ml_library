@@ -16,12 +16,11 @@ def filtrar_correlaciones(df, umbral=0.7, objetivo=None):
     Retorna:
     - DataFrame con las combinaciones de variables que tienen correlación mayor al umbral, sin duplicados.
     """
-    df_corr = df.corr()
-
     # Si se da una variable objetivo, excluimos sus filas y columnas
     if objetivo:
-        df_corr = df_corr.drop(index=objetivo, columns=objetivo)
+        df_corr = df.drop(columns=objetivo, axis = 0)
 
+    df_corr = df_corr.corr()
 
     # Eliminar duplicados manteniendo solo las correlaciones por encima de la diagonal
     df_corr_upper = df_corr.where(np.triu(np.ones(df_corr.shape), k=1).astype(bool))
