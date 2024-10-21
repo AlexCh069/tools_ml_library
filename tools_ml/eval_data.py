@@ -3,36 +3,46 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 
-def filtrar_correlaciones(df, umbral=0.7, objetivo=None):
+def filtrar_correlaciones(df, umbrales=[-0.5, 0.7], objetivo=None):
     """
-    Filtra las correlaciones mayores al umbral dado y excluye las correlaciones con la variable objetivo,
+    Filtra las correlaciones menores y mayores a ciertos umbrales dados (excluye las correlaciones con la variable objetivo si es categorica),
     evitando correlaciones duplicadas. Solo acepta datos numericos, no categoricos
     
     Parámetros:
     - df_corr: DataFrame de correlaciones (variables en filas y columnas).
-    - umbral: Valor mínimo de correlación a filtrar (default = 0.7).
+    - umbrales: Umbral de correlaciones [min_umbral, max_umbral]. Default [-0.5 , 0.7]. Tambien puede aceptar un umbral maximo (ejm: 0.7)
     - objetivo: Nombre de la variable objetivo que se quiere excluir (default = None).
     
     Retorna:
-    - DataFrame con las combinaciones de variables que tienen correlación mayor al umbral, sin duplicados.
+    - DataFrame con las combinaciones de variables que tienen correlación mayor al umbrales, sin duplicados.
     """
     # Si se da una variable objetivo, excluimos sus filas y columnas
     if objetivo:
         df_corr = df.drop(columns=objetivo, axis = 0)
 
+
+    # Obtenemos la matriz de correlaciones
     df_corr = df_corr.corr()
 
     # Eliminar duplicados manteniendo solo las correlaciones por encima de la diagonal
     df_corr_upper = df_corr.where(np.triu(np.ones(df_corr.shape), k=1).astype(bool))
+
+
+    if isinstance(umbrales, (float)):
+        query = (df_corr_upper > umbrales)
+    elif isinstance(umbrales,list):
+        query = (df_corr_upper < umbrales[0]) | (df_corr_upper > umbrales[1])
+
     
-    # Filtrar valores mayores al umbral
-    df_corr_upper_filtrado = df_corr_upper[df_corr_upper > umbral]
+    # Filtrar valores mayores al umbrales
+    df_corr_upper_filtrado = df_corr_upper[query]
 
     # Convertir en formato largo
     df_corr_stack_sin_duplicados = df_corr_upper_filtrado.stack()
     pd.set_option('display.max_rows', None) # Para mostrar todo el contenido
     
     return df_corr_stack_sin_duplicados
+
 
 
 def calcular_vif(df: pd.DataFrame, umbral_vif = None, objetivo:str = None):

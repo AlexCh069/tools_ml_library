@@ -161,7 +161,7 @@ def distribution_Data(label):
     fig.suptitle(str(label.name)+ ' Distribution')
     fig.show()
 
-    #return fig
+    plt.show()
 
 # ----------------------- DATOS CUALITATIVOS -----------------------------------
 
