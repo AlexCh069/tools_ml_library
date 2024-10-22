@@ -19,7 +19,8 @@ def filtrar_correlaciones(df, umbrales=[-0.5, 0.7], objetivo=None):
     # Si se da una variable objetivo, excluimos sus filas y columnas
     if objetivo:
         df_corr = df.drop(columns=objetivo, axis = 0)
-
+    else: 
+        df_corr = df
 
     # Obtenemos la matriz de correlaciones
     df_corr = df_corr.corr()
@@ -42,7 +43,6 @@ def filtrar_correlaciones(df, umbrales=[-0.5, 0.7], objetivo=None):
     pd.set_option('display.max_rows', None) # Para mostrar todo el contenido
     
     return df_corr_stack_sin_duplicados
-
 
 
 def calcular_vif(df: pd.DataFrame, umbral_vif = None, objetivo:str = None):
