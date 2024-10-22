@@ -25,6 +25,10 @@ import plotly.express as px
 import plotly.io as pio
 import plotly.graph_objects as graph_objects
 
+# Cambia el backend a uno interactivo como TkAgg o Qt5Agg
+plt.switch_backend('TkAgg')  
+
+
 # Establecer el tema predeterminado
 template =  graph_objects.layout.Template()
 template.layout = graph_objects.Layout(
@@ -274,7 +278,7 @@ def multiple_histogram(df:pandas.DataFrame,
     Tenga en cuenta que si llama a esto desde cuadernos jupyter y no captura la salida
     aparecerá en la pantalla como si se hubiera llamado `.show()`
 
-    df          : Los datos
+    df          :       Los datos
     
     label_x (str):      El nombre de la columna en el DataFrame que será usada en el eje x del histograma.
     label_group (str):  El nombre de la columna del DataFrame por la cual se agruparán los datos. 
