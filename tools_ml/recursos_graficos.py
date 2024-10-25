@@ -25,8 +25,6 @@ import plotly.express as px
 import plotly.io as pio
 import plotly.graph_objects as graph_objects
 
-# Cambia el backend a uno interactivo como TkAgg o Qt5Agg
-plt.switch_backend('TkAgg')  
 
 
 # Establecer el tema predeterminado
@@ -480,9 +478,3 @@ def tipo_variable(data: pandas.DataFrame, col: str):
         else: return 'o'
 
 
-# CREAR FUNCION PARA RECORTAR OUTLIERS DE SET DE DATOS (por desviacion estandar)
-
-# PASTILLERO INTELIGENTE XD (CON ALARMA INCLUIDA)
-
-
-    
