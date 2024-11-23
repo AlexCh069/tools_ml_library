@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-
+# tener instalado la version 3.10 de python, no funciona con versiones mas actualizadas 
 setup(
     name='tools_ml',
     version='0.1',
@@ -12,5 +12,6 @@ setup(
                     'scikit-learn==1.3.2',
                     'yellowbrick == 1.5',
                     'scipy == 1.11.3',
-                    'plotly == 5.24.0'],
+                    'plotly == 5.24.0',
+                    'pwlf==0.2.6'],
 )

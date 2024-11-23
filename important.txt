@@ -1,0 +1,10 @@
+Pasos para actualizar la libreria:
+1- Borrar la libreria
+pip uninstall tools_ml
+
+
+1- Para crear el empaquetado de los datos fuente:
+python setup.py sdist bdist_wheel
+
+2-Instalar la libreriag
+pip install dist/tools_ml-0.1-py3-none-any.whl
